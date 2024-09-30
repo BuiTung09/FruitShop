@@ -8,9 +8,6 @@ public class Order {
     private List<Fruit> listFruit; // Danh sách các loại trái cây trong order
 
     // Constructor không đối số
-    public Order() {
-        listFruit = new ArrayList<>();
-    }
 
     // Constructor có tham số
     public Order(String customer) {
@@ -18,8 +15,10 @@ public class Order {
         listFruit = new ArrayList<>();
     }
 
+   // Constructor có tham số khác (truyền cả tên khách hàng và danh sách trái cây)
     public Order(String customerName, ArrayList<Fruit> customerCart) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.customer = customerName;
+        this.listFruit = new ArrayList<>(customerCart); // Sao chép danh sách trái cây từ customerCart
     }
 
     // Getter cho danh sách trái cây
