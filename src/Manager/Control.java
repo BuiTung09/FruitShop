@@ -1,4 +1,3 @@
-
 package Manager;
 
 import Entity.Fruit;
@@ -66,7 +65,11 @@ public class Control {
             return;
         }
 
-        ArrayList<Fruit> customerCart = new ArrayList<>();
+        // Tạo một đơn hàng mới
+        System.out.println("Enter your name: ");
+        String customerName = scanner.next();
+        Order newOrder = new Order(customerName);  // Khởi tạo Order chỉ với tên khách hàng
+        
         while (true) {
             displayFruits();
             System.out.print("Please select an item: ");
@@ -85,26 +88,23 @@ public class Control {
                 continue;
             }
 
+            // Tạo một đối tượng trái cây với số lượng mới và thêm vào đơn hàng
             Fruit orderedFruit = new Fruit(selectedFruit.getFruitID(), selectedFruit.getFruitName(), selectedFruit.getOrigin(), quantity, selectedFruit.getPrice());
-            customerCart.add(orderedFruit);
+            newOrder.addFruit(orderedFruit);  // Thêm trái cây vào đơn hàng
+
+            // Giảm số lượng trái cây trong kho
+            selectedFruit.setQuantity(selectedFruit.getQuantity() - quantity);
 
             System.out.print("Do you want to order now (Y/N)? ");
             String choice = scanner.next();
             if (choice.equalsIgnoreCase("Y")) {
-                System.out.println("Enter your name: ");
-                String customerName = scanner.next();
-
-                // Giảm số lượng trái cây trong kho
-                selectedFruit.setQuantity(selectedFruit.getQuantity() - quantity);
-
-                // Tạo đơn hàng
-                Order newOrder = new Order(customerName, customerCart);
+                // Thêm đơn hàng vào bảng đơn hàng
                 orderTable.computeIfAbsent(customerName, k -> new ArrayList<>()).add(newOrder);
 
                 // Hiển thị đơn hàng
                 System.out.println("Your order:");
                 double total = 0;
-                for (Fruit fruit : customerCart) {
+                for (Fruit fruit : newOrder.getListFruit()) {
                     System.out.printf("%s | %d | %.2f$ | %.2f$\n", fruit.getFruitName(), fruit.getQuantity(), fruit.getPrice(), fruit.getAmount());
                     total += fruit.getAmount();
                 }

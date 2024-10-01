@@ -8,18 +8,15 @@ public class Order {
     private List<Fruit> listFruit; // Danh sách các loại trái cây trong order
 
     // Constructor không đối số
-
+    public Order(){
+        listFruit = new ArrayList<>();
+    }
     // Constructor có tham số
     public Order(String customer) {
         this.customer = customer;
         listFruit = new ArrayList<>();
     }
 
-   // Constructor có tham số khác (truyền cả tên khách hàng và danh sách trái cây)
-    public Order(String customerName, ArrayList<Fruit> customerCart) {
-        this.customer = customerName;
-        this.listFruit = new ArrayList<>(customerCart); // Sao chép danh sách trái cây từ customerCart
-    }
 
     // Getter cho danh sách trái cây
     public List<Fruit> getListFruit() {
@@ -32,8 +29,13 @@ public class Order {
     }
 
     // Thêm một loại trái cây vào order
-    public void addFruit(Fruit f) {
-        listFruit.add(f);
+    public void addFruit(Fruit newFruit ) throws Exception {
+        for (Fruit fruit : listFruit) {
+            if(fruit.getFruitID().equals(newFruit.getFruitID())){
+               fruit.setQuantity(newFruit.getQuantity()+ fruit.getQuantity());
+               return;
+            }
+        }
     }
 
     // Tính tổng số tiền của tất cả các loại trái cây trong order
