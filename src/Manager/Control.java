@@ -7,8 +7,8 @@ import java.util.Hashtable;
 import java.util.Scanner;
 
 public class Control {
-    private final ArrayList<Fruit> listFruit = new ArrayList<>();
-    private final Hashtable<String, ArrayList<Order>> orderTable = new Hashtable<>();
+    private final ArrayList<Fruit> listFruit = new ArrayList<>();// có thể là new ArrayList<Fruit> nếu netbeans 8.1
+    private final Hashtable<String, ArrayList<Order>> orderTable = new Hashtable<>(); // same
     private final Scanner scanner = new Scanner(System.in);
 
     // Tạo mới Fruit
